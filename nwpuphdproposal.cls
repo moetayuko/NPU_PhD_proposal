@@ -69,17 +69,29 @@
 
 \usepackage{tabularray}
 
-\newcommand{\nwpu@school}{}
-\newcommand{\school}[1]{\renewcommand{\nwpu@school}{#1}}
+\newif\ifnwpu@review
+\nwpu@reviewfalse
+\DeclareOption{review}{\nwpu@reviewtrue}
+\ProcessOptions\relax
 
-\newcommand{\nwpu@uid}{}
+\newcommand{\nwpu@school}{***}
+\newcommand{\nwpu@uid}{***}
+\newcommand{\nwpu@advisor}{***}
+
+\ifnwpu@review
+\newcommand{\school}[1]{}
+\newcommand{\studentnumber}[1]{}
+\newcommand{\advisor}[1]{}
+\newcommand{\nwpu@author}{***}
+\else
+\newcommand{\school}[1]{\renewcommand{\nwpu@school}{#1}}
 \newcommand{\studentnumber}[1]{\renewcommand{\nwpu@uid}{#1}}
+\newcommand{\advisor}[1]{\renewcommand{\nwpu@advisor}{#1}}
+\newcommand{\nwpu@author}{\@author}
+\fi
 
 \newcommand{\nwpu@major}{}
 \newcommand{\major}[1]{\renewcommand{\nwpu@major}{#1}}
-
-\newcommand{\nwpu@advisor}{}
-\newcommand{\advisor}[1]{\renewcommand{\nwpu@advisor}{#1}}
 
 \newcommand{\nwpu@chs@schoolname}{西北工业大学}
 \newcommand{\nwpu@chs@doctitle}{研究生学位论文开题报告表}
@@ -113,7 +125,7 @@
 					column{2}={l,m,\dimexpr 7.03cm-12pt}, % 12pt=\leftsep+\rightsep
 				}
 				学院    & \nwpu@school  \\
-				姓名    & \@author      \\
+				姓名    & \nwpu@author      \\
 				学号    & \nwpu@uid     \\
 				学科、专业 & \nwpu@major   \\
 				指导教师  & \nwpu@advisor \\
